@@ -1,100 +1,5 @@
 <?php 
-    class Razza{
-        public $race;
-        function __construct(string $race){
-            $this->race = $race; 
-        }
-    }
-    class Product {
-        // cose in comune:
-        public $price;
-        public $img;
-        public $name;
-        // prende il valore dalla classe Razza
-        protected $race;
-
-        public function getRace(){
-            return $this->race;
-        }
-        public function setRace(Razza $race){
-            $this->race = $race;
-        }
-        
-        function __construct(float $price, string $img, string $name, Razza $race){
-            $this->price = $price;
-            $this->img = $img;
-            $this->name = $name;
-            $this->setRace($race);
-        }
-        
-    }
-    //
-    class Cuccia extends Product{
-        public $material;
-        public $size;
-        public $type;
-        function __construct(float $price, string $img, string $name, Razza $race, string $material, string $size, string $type){
-            parent::__construct($price, $img, $name, $race);
-            $this->material = $material;
-            $this->size = $size;
-            $this->type = $type;
-        }
-    }
-    class Gioco extends Product{
-        // materiale
-        // rumoroso: si/no
-        // batterie: si/no
-        public $material;
-        public $noisy;
-        public $battery;
-        function getType(){
-            return $this -> noisy;
-        }
-        function setType(string $noisy){
-            if($noisy == 'si'){
-                $this ->noisy = 'Rumoroso';
-            }
-            else if ($noisy == 'no'){
-                $this ->noisy = 'Non rumoroso';
-            }
-        }
-        function hasBattery(){
-            return $this -> battery;
-        }
-        function setBattery(){
-            if($noisy == 'si'){
-                $this ->noisy = 'Ha la batteria';
-            }
-            else if ($noisy == 'no'){
-                $this ->noisy = 'Non ha la batteria';
-            }
-        }
-        function setType(string $noisy){
-            if($noisy == 'si'){
-                $this ->noisy = 'Rumoroso';
-            }
-            else if ($noisy == 'no'){
-                $this ->noisy = 'Non rumoroso';
-            }
-        }
-        function __construct(float $price, string $img, string $name, Razza $race, string $material, string $noisy, string $battery){
-            parent::__construct($price, $img, $name, $race);
-            $this->material = $material;
-            $this->setType('no');
-            $this->setBat;
-        }
-    }
-    class Cibo extends Product{
-        // ingredienti - array
-        // grandezza croccantini
-        // kg per pacco
-    }
-    
-    $cani = new Razza('Cane');
-    $gatto = new Razza ('Gatto');
-
-    $ProdottoCane = new Gioco (15.50, 'img','cane cane cane', $cani, 'Plastica', 'si', 'ciao');
-    var_dump($ProdottoCane);  
+    require_once __DIR__.'/models/instances.php'  
 ?>
 
 <!DOCTYPE html>
@@ -102,9 +7,42 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- bootstrap css -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <!-- my css -->
+        <link rel="stylesheet" href="css/style.css">
         <title>PHP OOP 2</title>
     </head>
     <body>
-        
+        <div class="container">
+            <div class="row">
+                <?php 
+                    foreach ($Products as $SingleProduct){
+                        
+                ?>
+                    <div class="col-4 g-3">
+                        <div class="card">
+                            <img src="<?php echo $SingleProduct->img?>" class="card-img-top" alt="<?php echo $SingleProduct->name?>">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <?php echo $SingleProduct->name?>
+                                </h5>
+                                <p class="card-text">
+                                    Animale: <?php echo $SingleProduct->race->animal?>
+                                </p>
+                                <p class="card-text">
+                                    Prezzo: <?php echo $SingleProduct->price?>
+                                </p>
+                                <p>Tipo di prodotto: <?php echo get_class($SingleProduct)?></p>
+                                <a href="#" class="btn btn-primary">Aggiungi al carrello</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php        
+                    }                
+                ?>                
+            </div>
+        </div>
     </body>
 </html>
