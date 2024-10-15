@@ -1,7 +1,6 @@
 <?php 
     require_once __DIR__.'/models/instances.php'  
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,6 +34,13 @@
                                     Prezzo: <?php echo $SingleProduct->price?>
                                 </p>
                                 <p>Tipo di prodotto: <?php echo get_class($SingleProduct)?></p>
+                                <?php if(get_class($SingleProduct) == 'Gioco' || get_class($SingleProduct) == 'Cuccia'){?>
+                                    
+                                <p class="card-text">
+                                    Materiale: <?php echo $SingleProduct->getMaterial()?>
+                                </p>
+                                    
+                                <?php }?>
                                 <a href="#" class="btn btn-primary">Aggiungi al carrello</a>
                             </div>
                         </div>

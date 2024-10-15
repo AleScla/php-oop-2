@@ -1,5 +1,19 @@
 <?php
-class Razza{
+    trait Material {
+        protected $material;
+        public function getMaterial(){
+            return $this->material;
+        }
+        public function setMaterial($material){
+            if(strtolower($material) == 'plastica' || strtolower($material) == 'stoffa'){
+                $this->material = $material;
+            }
+            else{
+                throw new Exception('Materiale non valido');
+            }
+        }
+    }
+    class Razza{
         public $animal;
         function __construct(string $animal){
             $this->animal = $animal; 
@@ -30,12 +44,12 @@ class Razza{
     }
     //
     class Cuccia extends Product{
-        public $material;
+        use Material;
         public $size;
         public $type; // particolari aggiuntivi cuccia
         function __construct(float $price, string $img, string $name, Razza $race, string $material, string $size, string $type){
             parent::__construct($price, $img, $name, $race);
-            $this->material = $material;
+            $this->setMaterial($material);
             $this->size = $size;
             $this->type = $type;
         }
@@ -44,7 +58,7 @@ class Razza{
         // materiale
         // rumoroso: si/no
         // batterie: si/no
-        public $material;
+        use Material;
         public $noisy;
         public $battery;
         function getType(){
@@ -72,7 +86,7 @@ class Razza{
 
         function __construct(float $price, string $img, string $name, Razza $race, string $material, string $noisy, string|null $battery){
             parent::__construct($price, $img, $name, $race);
-            $this->material = $material;
+            $this->setMaterial($material);
             $this->setType($noisy);
             $this->setBattery($battery);
         }

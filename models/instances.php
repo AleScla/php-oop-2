@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/classes.php';
+
 $cane = new Razza('Cane');
 $gatto = new Razza ('Gatto');
 // prodotti per cani
